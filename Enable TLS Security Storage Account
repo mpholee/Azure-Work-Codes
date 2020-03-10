@@ -1,0 +1,12 @@
+static void EnableTls12()
+    {
+        // Enable TLS 1.2 before connecting to Azure Storage
+        System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
+        // Connect to Azure Storage
+        CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName={yourstorageaccount};AccountKey={yourstorageaccountkey};EndpointSuffix=core.windows.net");
+        CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+        CloudBlobContainer container = blobClient.GetContainerReference("foo");
+        container.CreateIfNotExists();
+    }
